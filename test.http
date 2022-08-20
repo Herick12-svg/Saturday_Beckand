@@ -1,0 +1,44 @@
+GET http://localhost:5000/user/62c6ba6d4d31f0c0086cd651 HTTP/1.1
+
+###
+POST http://localhost:5000/auth/login HTTP/1.1
+content-type: application/json
+
+{
+     "username": "Herick",
+     "password": "12345",
+     "name" :"HerickT"
+
+}
+###
+POST http://localhost:5000/auth/signup HTTP/1.1
+content-type: application/json
+
+{
+    "username": "HerickTanoto12",
+    "password": "123456",
+    "name" :"HerickT"
+
+}
+###
+POST http://localhost:5000/tasklist HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sleep",
+    
+
+}
+
+###
+POST http://localhost:5000/user/edit HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYzZiYTZkNGQzMWYwYzAwODZjZDY1MSIsInVzZXJuYW1lIjoiSGVyaWNrVGFuIiwibmFtZSI6Ikhlcmlja1QiLCJpYXQiOjE2NTc5NTk0NjV9.1GN-5B5EpFuALFR3VBZBFn-PpqRvcRjodd_GhTsqJAg
+
+{
+    "id": "62a429c985b16f44ed4d630c",
+    "password": "1234578",
+    "name" :"Hericktanoto",
+
+}
+
