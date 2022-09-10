@@ -14,7 +14,12 @@ const userSchema =  new mongoose.Schema({
     hash: String, //encrypted password
     name: String,
     role: String,
-    createdAt: Date
+    createdAt: Date,
+    completed: {
+        type : Boolean,
+        default: false
+    },
+    profile: String
 
 });
 

@@ -46,8 +46,12 @@ app.use(passport.initialize())
 // Start to listening for every connection
 app.use('/auth', AuthRoute);
 // Any API started /user => handled by UserRoute
-app.use('/user', passport.authenticate('jwt', {failureRedirect: '/auth/login', session: false}), UserRoute);
+// app.use('/user', passport.authenticate('jwt', {failureRedirect: '/auth/login', session: false}), UserRoute);
 // Initialize passport Strategy
+app.use('/user', UserRoute)
+//let uploadfolder can be accessed by public user
+app.use('/upload' ,express.static('upload'))
+
 app.use('/taskList', TaskRoute);
 
 app.listen(PORT, () => {
