@@ -19,7 +19,8 @@ const userSchema =  new mongoose.Schema({
         type : Boolean,
         default: false
     },
-    profile: String
+    profile: String,
+    
 
 });
 

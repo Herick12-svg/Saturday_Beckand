@@ -1,22 +1,14 @@
 const mongoose = require('mongoose');
 
 const userSchema =  new mongoose.Schema({
-    taskList: {
-        type: String,
-        //when creaTE A new document,must not conflict or duplicate username
-        required: true,
-        unique: true,
-        lowercase: true,
-        trim: true
-
-
-    },
-    name: String,
+    description: String,
     completed: {
         type: Boolean,
         default: false
     },
-    createdAt: Date
+    createdAt: Date,
+    dueDate: Date,
+    user: mongoose.Schema.Types.ObjectId
 
 });
 

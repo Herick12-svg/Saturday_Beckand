@@ -4,6 +4,7 @@ const User = require('../models/user');
 const SHA256 = require("crypto-js/sha256");
 const Base64 = require('crypto-js/enc-base64');
 const jwt = require('jsonwebtoken')
+const {SECRET} = require('../utils/consts')
 
 router.post('/signup', async (req, res) => {
 	if (req.body.username && req.body.password && req.body.name)
@@ -28,6 +29,7 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
 	// if provide username and password
+	
 	if (req.body.username && req.body.password)
 	{
 		const hash = Base64.stringify(SHA256(req.body.password));
@@ -46,8 +48,8 @@ router.post('/login', async (req, res) => {
 				name: data.name, 
 				profilePic: data.profilePic,
                 role: data.role}, 
-                'hs123$@Abc' )
-
+                SECRET)
+				console.log(SECRET, token)
 			res.json({ error: false, data, token })
 		}
 		else
