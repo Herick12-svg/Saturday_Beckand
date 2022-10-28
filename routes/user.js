@@ -85,7 +85,7 @@ router.post('/edit', async (req, res) => {
 		}			
 			
 		await User.findOneAndUpdate({ _id: req.body.id }, updateOptions)
-		res.json({ error: false , name, password})
+		res.json({ error: false })
 	}
 	else
 	{
