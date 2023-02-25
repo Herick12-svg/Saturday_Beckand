@@ -38,9 +38,12 @@ router.post('/login', async (req, res) => {
 		// findOne : only find one of all data in DB
 		const data = await User.findOne({ username: req.body.username, hash })
 		
+		
 		// if data is not null
 		if (data)
-		{
+		try {
+
+			const pushToken = req.body.pushToken;
             //Generate token
             const token = jwt.sign({  
                 id: data._id, 
@@ -48,10 +51,35 @@ router.post('/login', async (req, res) => {
 				name: data.name, 
 				profilePic: data.profilePic,
                 role: data.role}, 
-                SECRET)
-				console.log(SECRET, token)
+				SECRET)
+
+			if (pushToken) 
+
+			{
+				
+				if(!data.pushToken) //|| atau
+					data.pushToken = []
+				//check if in pushToken array has this token or not
+				//later it will check if the pushToken given is the same as the token in the mongo
+				//then if there is the same token the same token wil be added to the filter_token
+				let filter_token = data.pushToken.filter(o => o.token === pushToken.token)
+				console.log("filter_token ==",filter_token)
+				if (filter_token.length == 0)
+				{
+					data.pushToken.push(pushToken)
+				}
+
+				
+				await data.save();
+			}
+				
+			console.log(SECRET, token)
 			res.json({ error: false, data, token })
+
+		} catch(error) {
+			res.json({error:true, message: error.message})
 		}
+		
 		else
 		{
 			res.json({ error: true, message: 'Invalid username/password' })

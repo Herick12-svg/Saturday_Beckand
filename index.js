@@ -47,6 +47,7 @@ app.use(passport.initialize())
 app.use('/auth', AuthRoute);
 // Any API started /user => handled by UserRoute
 app.use('/user', passport.authenticate('jwt', {failureRedirect: '/auth/login', session: false}), UserRoute);
+//app.use('/tasklist', TaskRoute)
 // Initialize passport Strategy
 // app.use('/user', UserRoute)
 //let uploadfolder can be accessed by public user

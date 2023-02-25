@@ -20,6 +20,10 @@ const userSchema =  new mongoose.Schema({
         default: false
     },
     profile: String,
+    pushToken: [{
+        os: String, // operating system os : android or ios
+        token: String
+    }]
     
 
 });

@@ -70,20 +70,60 @@ router.post('/delete', async (req, res) => {
 	}
 })
 router.get('/:get', async (req, res) => {
-	try {
-		const allTask = await Task.find({})
-   		Task.find({}, (err, data) )
-    	if (allTask)
-			{
-				res.json({ error: false, data: allTask });
-			}
-		else
-			{
-				res.json({ error: true, message: 'no Task' });
-			}		
-	}catch (error) {
-		res.json({ error: true, message: error.message });
+	
+	let options = {
 	}
+
+	if (req.query.startDate)
+	{
+		if (req.query.endDate) 
+		{
+			//Today date: (e.g !7 sept 2022)
+			//start Date: 2022-9-17 00.00.00
+			//end date:  2022-9-17 23.59.99
+			options.dueDate = {
+				$gte: req.query.startDate,
+				$lte: req.query.endDate
+			}
+		}
+		// upcoming task
+		else {
+			options.dueDate = {$get: req.query.startDate}
+		}
+	}
+
+	try {
+		const tasklist = await Task.find()
+			.sort({dueDate: 1}) // sort by duedate {accending}
+			.populate({
+				path: 'user',
+				select: 'username name profile',
+				model:'user'
+			})
+			.exec()
+		res.json({ error:false, data: tasklist})
+	} catch (err) {
+		res.json({ error:true, message: err.message})
+	}
+   
+})
+
+router.post('/:user/obtain', async (req, res) => {
+	try {
+		if (req.params.user) {
+			console.log(req.params.user)
+			const tasklist = await Task.find({user: req.params.user})
+			
+
+			res.json({ error:false, data: tasklist})
+		}
+		else {
+			console.log("no user")
+		}
+	} catch (err) {
+		res.json({ error:true, message: err.message})
+	}
+
 	
    
 })

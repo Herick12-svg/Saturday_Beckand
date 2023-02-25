@@ -37,6 +37,7 @@ passport.use(new JWTStrategy(options, (jwt_payload, done) => {
                 console.log('Verification success:', data);
                 // return User Data and save into session
                 // this data will be inserted into every request, i.e. req.user
+                //see from jwt.sign to see the data of req.user
                 done(null, data);
             }
             else
